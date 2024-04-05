@@ -13,9 +13,8 @@ namespace nystudio107\twigpack\services;
 
 use craft\base\Component;
 use nystudio107\twigpack\helpers\Manifest as ManifestHelper;
-
 use nystudio107\twigpack\Twigpack;
-
+use Twig\Error\LoaderError;
 use yii\web\NotFoundHttpException;
 
 /** @noinspection MissingPropertyAnnotationsInspection */
@@ -68,7 +67,7 @@ class Manifest extends Component
      * @param array $attributes additional HTML key/value pair attributes to add to the resulting tag
      *
      * @return string
-     * @throws \Twig\Error\LoaderError
+     * @throws LoaderError
      */
     public function getCriticalCssTags($name = null, $config = null, array $attributes = []): string
     {
@@ -92,8 +91,8 @@ class Manifest extends Component
     /**
      * Return the HTML tags to include the JavaScript module
      *
-     * @param string     $moduleName
-     * @param bool       $async
+     * @param string $moduleName
+     * @param bool $async
      * @param null|array $config
      * @param array $attributes additional HTML key/value pair attributes to add to the resulting tag
      *
@@ -125,7 +124,7 @@ class Manifest extends Component
      *
      * @param string $moduleName
      * @param string $type
-     * @param null   $config
+     * @param ?array $config
      *
      * @return null|string
      * @throws NotFoundHttpException
@@ -143,7 +142,7 @@ class Manifest extends Component
      *
      * @param string $moduleName
      * @param string $type
-     * @param null   $config
+     * @param ?array $config
      *
      * @return null|string
      * @throws NotFoundHttpException
@@ -173,7 +172,7 @@ class Manifest extends Component
      *
      * @param string $fileName
      * @param string $type
-     * @param null   $config
+     * @param ?array $config
      *
      * @return string
      */

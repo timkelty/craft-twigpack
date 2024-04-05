@@ -14,7 +14,6 @@ namespace nystudio107\twigpack;
 use Craft;
 use craft\base\Plugin;
 use craft\events\DeleteTemplateCachesEvent;
-
 use craft\events\PluginEvent;
 use craft\events\RegisterCacheOptionsEvent;
 use craft\events\TemplateEvent;
@@ -27,7 +26,6 @@ use craft\web\View;
 use nystudio107\twigpack\models\Settings;
 use nystudio107\twigpack\services\Manifest as ManifestService;
 use nystudio107\twigpack\variables\ManifestVariable;
-
 use yii\base\Event;
 use yii\web\NotFoundHttpException;
 
@@ -53,10 +51,25 @@ class Twigpack extends Plugin
     /**
      * @var string
      */
-    public static $templateName;
+    public static $templateName = '';
 
     // Static Methods
     // =========================================================================
+    /**
+     * @var string
+     */
+    public $schemaVersion = '1.0.0';
+
+    // Public Properties
+    // =========================================================================
+    /**
+     * @var bool
+     */
+    public $hasCpSection = false;
+    /**
+     * @var bool
+     */
+    public $hasCpSettings = false;
 
     /**
      * @inheritdoc
@@ -69,24 +82,6 @@ class Twigpack extends Plugin
 
         parent::__construct($id, $parent, $config);
     }
-
-    // Public Properties
-    // =========================================================================
-
-    /**
-     * @var string
-     */
-    public $schemaVersion = '1.0.0';
-
-    /**
-     * @var bool
-     */
-    public $hasCpSection = false;
-
-    /**
-     * @var bool
-     */
-    public $hasCpSettings = false;
 
     // Public Methods
     // =========================================================================
@@ -127,6 +122,7 @@ class Twigpack extends Plugin
     public function injectErrorEntry()
     {
         if (Craft::$app->getResponse()->isServerError || Craft::$app->getResponse()->isClientError) {
+            /** @var Settings $settings */
             $settings = self::$plugin->getSettings();
             if (!empty($settings->errorEntry) && $settings->useDevServer) {
                 try {
