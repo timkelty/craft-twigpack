@@ -1,6 +1,6 @@
 name: Build and Deploy Docs
 env:
-  DOCS_DEST_DIR: /typogrify/v4/
+  DOCS_DEST_DIR: /twigpack/v4/
 on:
   push:
     branches:
