@@ -473,7 +473,7 @@ EOT;
             }
             try {
                 if (is_file($localPath)) {
-                    return self::getFile($localPath) ?? '';
+                    return self::getFile($localPath);
                 }
             } catch (Exception $e) {
                 Craft::error($e->getMessage(), __METHOD__);
@@ -653,7 +653,7 @@ EOT;
      */
     protected static function getHttpResponseCode($url, $context): bool|string
     {
-        $headers = @get_headers($url, 0, $context);
+        $headers = @get_headers($url, false, $context);
         if (empty($headers)) {
             return '404';
         }

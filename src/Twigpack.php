@@ -43,14 +43,14 @@ class Twigpack extends Plugin
     // =========================================================================
 
     /**
-     * @var Twigpack
+     * @var ?Twigpack
      */
-    public static Twigpack $plugin;
+    public static ?Twigpack $plugin = null;
 
     /**
      * @var string
      */
-    public static string $templateName;
+    public static string $templateName = '';
 
     // Static Methods
     // =========================================================================
@@ -121,6 +121,7 @@ class Twigpack extends Plugin
     public function injectErrorEntry(): void
     {
         if (Craft::$app->getResponse()->isServerError || Craft::$app->getResponse()->isClientError) {
+            /** @var ?Settings $settings */
             $settings = self::$plugin->getSettings();
             if ($settings && !empty($settings->errorEntry) && $settings->useDevServer) {
                 try {
