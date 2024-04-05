@@ -11,22 +11,22 @@
 
 namespace nystudio107\twigpack;
 
-use nystudio107\twigpack\services\Manifest as ManifestService;
-use nystudio107\twigpack\models\Settings;
-use nystudio107\twigpack\variables\ManifestVariable;
-
 use Craft;
 use craft\base\Plugin;
 use craft\events\DeleteTemplateCachesEvent;
+
 use craft\events\PluginEvent;
 use craft\events\RegisterCacheOptionsEvent;
 use craft\events\TemplateEvent;
 use craft\services\Plugins;
 use craft\services\TemplateCaches;
 use craft\utilities\ClearCaches;
-use craft\web\twig\variables\CraftVariable;
 use craft\web\Application;
+use craft\web\twig\variables\CraftVariable;
 use craft\web\View;
+use nystudio107\twigpack\models\Settings;
+use nystudio107\twigpack\services\Manifest as ManifestService;
+use nystudio107\twigpack\variables\ManifestVariable;
 
 use yii\base\Event;
 use yii\web\NotFoundHttpException;
@@ -160,7 +160,7 @@ class Twigpack extends Plugin
         Event::on(
             View::class,
             View::EVENT_BEFORE_RENDER_PAGE_TEMPLATE,
-            function (TemplateEvent $event) {
+            function(TemplateEvent $event) {
                 self::$templateName = $event->template;
             }
         );
@@ -168,7 +168,7 @@ class Twigpack extends Plugin
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
-            function (Event $event) {
+            function(Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('twigpack', ManifestVariable::class);
@@ -178,7 +178,7 @@ class Twigpack extends Plugin
         Event::on(
             TemplateCaches::class,
             TemplateCaches::EVENT_AFTER_DELETE_CACHES,
-            function (DeleteTemplateCachesEvent $event) {
+            function(DeleteTemplateCachesEvent $event) {
                 // Invalidate the caches when template caches are deleted
                 $this->clearAllCaches();
             }
@@ -187,7 +187,7 @@ class Twigpack extends Plugin
         Event::on(
             Plugins::class,
             Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
+            function(PluginEvent $event) {
                 if ($event->plugin === $this) {
                     // Invalidate our caches after we've been installed
                     $this->clearAllCaches();
@@ -198,7 +198,7 @@ class Twigpack extends Plugin
         Event::on(
             ClearCaches::class,
             ClearCaches::EVENT_REGISTER_CACHE_OPTIONS,
-            function (RegisterCacheOptionsEvent $event) {
+            function(RegisterCacheOptionsEvent $event) {
                 Craft::debug(
                     'ClearCaches::EVENT_REGISTER_CACHE_OPTIONS',
                     __METHOD__
@@ -213,7 +213,7 @@ class Twigpack extends Plugin
         // delay attaching event handler to the view component after it is fully configured
         $app = Craft::$app;
         if ($app->getConfig()->getGeneral()->devMode) {
-            $app->on(Application::EVENT_BEFORE_REQUEST, function () use ($app) {
+            $app->on(Application::EVENT_BEFORE_REQUEST, function() use ($app) {
                 $app->getView()->on(View::EVENT_END_BODY, [$this, 'injectErrorEntry']);
             });
         }

@@ -11,10 +11,10 @@
 
 namespace nystudio107\twigpack\services;
 
-use nystudio107\twigpack\Twigpack;
+use craft\base\Component;
 use nystudio107\twigpack\helpers\Manifest as ManifestHelper;
 
-use craft\base\Component;
+use nystudio107\twigpack\Twigpack;
 
 use yii\web\NotFoundHttpException;
 

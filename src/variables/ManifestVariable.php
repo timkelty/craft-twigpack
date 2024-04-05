@@ -11,13 +11,13 @@
 
 namespace nystudio107\twigpack\variables;
 
-use nystudio107\twigpack\Twigpack;
-
 use craft\helpers\Template;
 
-use yii\web\NotFoundHttpException;
+use nystudio107\twigpack\Twigpack;
 
 use Twig\Markup;
+
+use yii\web\NotFoundHttpException;
 
 /**
  * @author    nystudio107
