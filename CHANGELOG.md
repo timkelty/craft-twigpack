@@ -1,6 +1,6 @@
 # Twigpack Changelog
 
-## 1.2.18 - UNRELEASED
+## 1.2.18 - 2024.04.05
 ### Added
 * Add `phpstan` and `ecs` code linting
 * Add `code-analysis.yaml` GitHub action
