@@ -1,5 +1,15 @@
 # Twigpack Changelog
 
+## 1.2.18 - 2024.04.05
+### Added
+* Add `phpstan` and `ecs` code linting
+* Add `code-analysis.yaml` GitHub action
+
+### Changed
+* Updated docs to use node 20 & a new sitemap plugin
+* PHPstan code cleanup
+* ECS code cleanup
+
 ## 1.2.17 - 2022.04.26
 ### Changed
 * Don't log the full exception on a Guzzle error, just log the message

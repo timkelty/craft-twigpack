@@ -139,7 +139,7 @@ class Manifest
     public static function getCriticalCssTags(array $config, $name = null, array $attributes = []): string
     {
         // Resolve the template name
-        $template = Craft::$app->getView()->resolveTemplate($name ?? Twigpack::$templateName ?? '');
+        $template = Craft::$app->getView()->resolveTemplate($name ?? Twigpack::$templateName);
         if ($template) {
             $name = self::combinePaths(
                 pathinfo($template, PATHINFO_DIRNAME),
@@ -307,7 +307,6 @@ EOT;
      */
     public static function getModuleHash(array $config, string $moduleName, string $type = 'modern', bool $soft = false)
     {
-
         $moduleHash = '';
         try {
             // Get the module entry
@@ -342,8 +341,7 @@ EOT;
         string $moduleName,
         string $type = 'modern',
         bool   $soft = false
-    )
-    {
+    ) {
         $module = null;
         // Get the manifest file
         $manifest = self::getManifestFile($config, $type);
@@ -475,7 +473,7 @@ EOT;
             }
             try {
                 if (is_file($localPath)) {
-                    return self::getFile($localPath) ?? '';
+                    return self::getFile($localPath);
                 }
             } catch (Exception $e) {
                 Craft::error($e->getMessage(), __METHOD__);
@@ -579,10 +577,10 @@ EOT;
             $dependency = new ChainedDependency([
                 'dependencies' => [
                     new FileDependency([
-                        'fileName' => $path
+                        'fileName' => $path,
                     ]),
-                    $dependency
-                ]
+                    $dependency,
+                ],
             ]);
         }
         // Set the cache duration based on devMode
@@ -595,7 +593,7 @@ EOT;
         $cacheKeySuffix = $settings->cacheKeySuffix ?? '';
         $file = $cache->getOrSet(
             self::CACHE_KEY . $cacheKeySuffix . $path,
-            function () use ($path, $callback) {
+            function() use ($path, $callback) {
                 $result = null;
                 $contents = null;
                 if (UrlHelper::isAbsoluteUrl($path)) {
@@ -655,7 +653,7 @@ EOT;
      */
     protected static function getHttpResponseCode($url, $context)
     {
-        $headers = @get_headers($url, 0, $context);
+        $headers = @get_headers($url, false, $context);
         if (empty($headers)) {
             return '404';
         }
@@ -673,7 +671,7 @@ EOT;
     protected static function combinePaths(string ...$paths): string
     {
         $last_key = count($paths) - 1;
-        array_walk($paths, function (&$val, $key) use ($last_key) {
+        array_walk($paths, function(&$val, $key) use ($last_key) {
             switch ($key) {
                 case 0:
                     $val = rtrim($val, '/ ');

@@ -2,7 +2,7 @@
   "name": "nystudio107/craft-twigpack",
   "description": "Twigpack is a bridge between Twig and webpack, with manifest.json & webpack-dev-server HMR support",
   "type": "craft-plugin",
-  "version": "1.2.17",
+  "version": "1.2.18",
   "keywords": [
     "craftcms",
     "craft-plugin",
@@ -25,6 +25,24 @@
   ],
   "require": {
     "craftcms/cms": "^3.0.0"
+  },
+  "require-dev": {
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main",
+    "craftcms/rector": "dev-main"
+  },
+  "scripts": {
+    "phpstan": "phpstan --ansi --memory-limit=1G",
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --fix --ansi"
+  },
+  "config": {
+    "allow-plugins": {
+      "craftcms/plugin-installer": true,
+      "yiisoft/yii2-composer": true
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
   },
   "autoload": {
     "psr-4": {

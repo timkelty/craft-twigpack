@@ -11,13 +11,11 @@
 
 namespace nystudio107\twigpack\variables;
 
-use nystudio107\twigpack\Twigpack;
-
 use craft\helpers\Template;
-
-use yii\web\NotFoundHttpException;
-
+use nystudio107\twigpack\Twigpack;
+use Twig\Error\LoaderError;
 use Twig\Markup;
+use yii\web\NotFoundHttpException;
 
 /**
  * @author    nystudio107
@@ -38,7 +36,7 @@ class ManifestVariable
     public static function includeCssRelPreloadPolyfill(): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getCssRelPreloadPolyfill() ?? ''
+            Twigpack::$plugin->manifest->getCssRelPreloadPolyfill()
         );
     }
 
@@ -53,7 +51,7 @@ class ManifestVariable
     public function includeCssModule(string $moduleName, bool $async = false, array $attributes = []): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getCssModuleTags($moduleName, $async, null, $attributes) ?? ''
+            Twigpack::$plugin->manifest->getCssModuleTags($moduleName, $async, null, $attributes)
         );
     }
 
@@ -68,7 +66,7 @@ class ManifestVariable
     public function includeInlineCssTags(string $path, array $attributes = []): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getCssInlineTags($path, $attributes) ?? ''
+            Twigpack::$plugin->manifest->getCssInlineTags($path, $attributes)
         );
     }
 
@@ -80,18 +78,18 @@ class ManifestVariable
      * @param array $attributes additional HTML key/value pair attributes to add to the resulting tag
      *
      * @return Markup
-     * @throws \Twig\Error\LoaderError
+     * @throws LoaderError
      */
     public function includeCriticalCssTags($name = null, array $attributes = []): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getCriticalCssTags($name, null, $attributes) ?? ''
+            Twigpack::$plugin->manifest->getCriticalCssTags($name, null, $attributes)
         );
     }
 
     /**
-     * @param string     $moduleName
-     * @param bool       $async
+     * @param string $moduleName
+     * @param bool $async
      * @param array $attributes additional HTML key/value pair attributes to add to the resulting tag
      *
      * @return null|Markup
@@ -100,7 +98,7 @@ class ManifestVariable
     public function includeJsModule(string $moduleName, bool $async = false, array $attributes = [])
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getJsModuleTags($moduleName, $async, null, $attributes) ?? ''
+            Twigpack::$plugin->manifest->getJsModuleTags($moduleName, $async, null, $attributes)
         );
     }
 
@@ -109,7 +107,7 @@ class ManifestVariable
      *
      * @param string $moduleName
      * @param string $type
-     * @param null   $config
+     * @param null $config
      *
      * @return null|Markup
      * @throws NotFoundHttpException
@@ -117,7 +115,7 @@ class ManifestVariable
     public function getModuleUri(string $moduleName, string $type = 'modern', $config = null)
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getModule($moduleName, $type, $config) ?? ''
+            Twigpack::$plugin->manifest->getModule($moduleName, $type, $config)
         );
     }
 
@@ -126,7 +124,7 @@ class ManifestVariable
      *
      * @param string $moduleName
      * @param string $type
-     * @param null   $config
+     * @param null $config
      *
      * @return null|Markup
      * @throws NotFoundHttpException
@@ -134,7 +132,7 @@ class ManifestVariable
     public function getModuleHash(string $moduleName, string $type = 'modern', $config = null)
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getModuleHash($moduleName, $type, $config) ?? ''
+            Twigpack::$plugin->manifest->getModuleHash($moduleName, $type, $config)
         );
     }
 
@@ -148,7 +146,7 @@ class ManifestVariable
     public function includeSafariNomoduleFix(array $attributes = []): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getSafariNomoduleFix($attributes) ?? ''
+            Twigpack::$plugin->manifest->getSafariNomoduleFix($attributes)
         );
     }
 
@@ -162,7 +160,7 @@ class ManifestVariable
     public function includeFile(string $path): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getFile($path) ?? ''
+            Twigpack::$plugin->manifest->getFile($path)
         );
     }
 
@@ -171,14 +169,14 @@ class ManifestVariable
      *
      * @param string $fileName
      * @param string $type
-     * @param null   $config
+     * @param null $config
      *
      * @return Markup
      */
     public function includeFileFromManifest(string $fileName, string $type = 'legacy', $config = null): Markup
     {
         return Template::raw(
-            Twigpack::$plugin->manifest->getFileFromManifest($fileName, $type, $config) ?? ''
+            Twigpack::$plugin->manifest->getFileFromManifest($fileName, $type, $config)
         );
     }
 }
